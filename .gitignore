@@ -50,3 +50,6 @@ Thumbs.db
 # other
 .coverage
 .terraform
+
+# Test scripts (temporary)
+test-separate-branches.sh
