@@ -10,7 +10,6 @@ import json
 
 # Add the workspace to the path
 sys.path.insert(0, '/workspace')
-sys.path.insert(0, '/workspace/mock_servers')
 
 # Set environment
 os.environ['ENVIRONMENT'] = 'local'
