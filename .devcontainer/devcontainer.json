@@ -1,7 +1,8 @@
 {
   "name": "parliament-mcp-dev",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
   "workspaceFolder": "/workspace",
   "customizations": {

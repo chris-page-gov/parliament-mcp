@@ -27,8 +27,8 @@ WORKDIR /workspace
 # (Do not copy code here; mounting source for dev)
 
 # Install Python dependencies if needed
-COPY pyproject.toml uv.lock ./
-RUN uv pip install --system -r <(uv export --format requirements-txt --no-dev) || true
+COPY ../pyproject.toml ../uv.lock ./
+RUN uv export --format requirements-txt --no-dev > requirements.txt && uv pip install --system -r requirements.txt || true
 
 # Set Python path
 ENV PYTHONPATH=/workspace
