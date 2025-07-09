@@ -330,6 +330,37 @@ With the image pushed to ECR, you can create the Lambda with the following confi
 
 * Remember to increase the default timeout to ~10 minutes to ensure the ingestion has enough time to complete.
 
+## Building and Uploading the MCP Server Docker Image
+
+You can build and upload the MCP server Docker image to Docker Hub (or Docker Desktop/Toolkit) using the provided Makefile targets. This is useful for sharing or running the image outside of your local environment.
+
+### 1. Build the Docker Image
+
+Replace `yourusername` with your Docker Hub username or your registry path:
+
+```bash
+make docker_build_mcp_server IMAGE_TAG=latest DOCKER_REPO=yourusername/parliament-mcp
+```
+
+### 2. Push the Docker Image
+
+```bash
+make docker_push_mcp_server IMAGE_TAG=latest DOCKER_REPO=yourusername/parliament-mcp
+```
+
+You must be logged in to Docker Hub (or your registry) before pushing:
+
+```bash
+docker login
+```
+
+After pushing, you can pull and run the image from any machine with Docker:
+
+```bash
+docker pull yourusername/parliament-mcp:latest
+docker run -p 8080:8080 yourusername/parliament-mcp:latest
+```
+
 ## Usage Examples
 
 Once connected to Claude, you can use natural language queries like:

@@ -1,3 +1,13 @@
+# Build MCP server Docker image for Docker Hub/Toolkit
+.PHONY: docker_build_mcp_server
+docker_build_mcp_server:
+	docker build -f mcp_server/Dockerfile -t $(DOCKER_REPO):$(IMAGE_TAG) .
+
+# Push MCP server Docker image to Docker Hub/Toolkit
+.PHONY: docker_push_mcp_server
+docker_push_mcp_server:
+	docker push $(DOCKER_REPO):$(IMAGE_TAG)
+
 -include .env
 export
 
