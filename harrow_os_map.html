@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harrow East/West Constituency Roads - OS Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .map-tile {
+            margin: 20px 0;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .map-tile img {
+            display: block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .map-tile img:hover {
+            transform: scale(1.05);
+        }
+        .road-list {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .road-list h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        .road-list ul {
+            margin: 10px 0;
+        }
+        .coordinates {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ OS Map: Roads Between Harrow East & Harrow West</h1>
+        
+        <div class="map-tile">
+            <p><strong>⚠️ OS Map Tile (API Key Required)</strong></p>
+            <div style="border: 2px dashed #ff6b6b; padding: 20px; background-color: #ffe6e6; border-radius: 8px;">
+                <p><strong>🔒 Security Notice:</strong> OS Map tiles require a valid API key for access.</p>
+                <p>To view the actual map:</p>
+                <ol style="text-align: left; margin: 10px 0;">
+                    <li>Obtain a valid OS API key from <a href="https://osdatahub.os.uk/" target="_blank">OS DataHub</a></li>
+                    <li>Use the OS MCP server with proper authentication</li>
+                    <li>Or visit the interactive OS Maps website below</li>
+                </ol>
+                <p><small>Tile coordinates: x=8192, y=5462, zoom=14 (Harrow area)</small></p>
+            </div>
+        </div>
+
+        <div class="coordinates">
+            <h3>📍 Map Reference Information</h3>
+            <p><strong>Grid Reference:</strong> TQ 15 88 (approximate center)</p>
+            <p><strong>Latitude/Longitude:</strong> 51.5836°N, -0.3339°W</p>
+            <p><strong>OS Landranger Map:</strong> Sheet 176 (West London)</p>
+            <p><strong>OS Explorer Map:</strong> Sheet 172 (Chiltern Hills East)</p>
+        </div>
+
+        <div class="road-list">
+            <h3>🛣️ Key Roads to Identify on Map</h3>
+            
+            <h4>Primary A-Roads:</h4>
+            <ul>
+                <li><strong>A404 Harrow Road</strong> - Main east-west arterial through central Harrow</li>
+                <li><strong>A4005 Northolt Road</strong> - Runs east-west, connects Northolt to Harrow town center</li>
+                <li><strong>A312 The Parkway</strong> - Major north-south route through Harrow</li>
+                <li><strong>A4090 Uxbridge Road</strong> - Southern boundary road through South Harrow</li>
+            </ul>
+
+            <h4>Secondary B-Roads:</h4>
+            <ul>
+                <li><strong>B455 Pinner Road</strong> - Connects Pinner (West) to Harrow town center</li>
+                <li><strong>B4545 Eastcote Road</strong> - Links Pinner to Ruislip areas</li>
+                <li><strong>B487 Rayners Lane</strong> - East-west connection through Rayners Lane</li>
+                <li><strong>B410 Kenton Road</strong> - Southern boundary between constituencies</li>
+            </ul>
+
+            <h4>Key Areas:</h4>
+            <ul>
+                <li><strong>Harrow-on-the-Hill Station</strong> - Major transport hub on boundary</li>
+                <li><strong>South Harrow High Street</strong> - Commercial area spanning boundary</li>
+                <li><strong>Rayners Lane</strong> - Transport interchange zone</li>
+                <li><strong>Pinner</strong> - Historic town center in Harrow West</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <h3>💡 Interactive OS Maps</h3>
+            <p>For detailed, interactive mapping:</p>
+            <ul style="text-align: left;">
+                <li><strong>OS Maps Online:</strong> <a href="https://osmaps.ordnancesurvey.co.uk/" target="_blank">osmaps.ordnancesurvey.co.uk</a></li>
+                <li><strong>Search:</strong> "Harrow, London" or postcode "HA1 3TP"</li>
+                <li><strong>Zoom Level:</strong> 14-16 for road detail</li>
+                <li><strong>Layers:</strong> Enable "Administrative boundaries" to see constituency limits</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <h3>� Security & API Access</h3>
+            <p><strong>Important:</strong> OS API keys should never be exposed in client-side code or URLs.</p>
+            <ul style="text-align: left;">
+                <li><strong>Secure Usage:</strong> API keys must be used server-side only</li>
+                <li><strong>OS DataHub:</strong> <a href="https://osdatahub.os.uk/" target="_blank">Register for API access</a></li>
+                <li><strong>MCP Server:</strong> Configure keys in environment variables, not in HTML</li>
+                <li><strong>Alternative:</strong> Use the public OS Maps website for viewing</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <h3>🔍 About This Map</h3>
+            <p>This page demonstrates how to reference OS map tiles securely. The actual map rendering 
+            requires proper server-side authentication with the OS NGD API.</p>
+            <p>The tile coordinates (x=8192, y=5462, zoom=14) cover the central Harrow area where the 
+            constituency boundary between Harrow East and Harrow West runs.</p>
+        </div>
+    </div>
+</body>
+</html>

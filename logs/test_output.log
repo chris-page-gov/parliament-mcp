@@ -1,0 +1,220 @@
+🗺️  Testing OS NGD API MCP Server...
+============================================================
+
+📍 Test 1: Getting geographic data for London
+{
+  "location": "London",
+  "data_type": "detailed",
+  "coordinates": {
+    "latitude": 51.5074,
+    "longitude": -0.1278
+  },
+  "administrative_areas": [
+    {
+      "name": "Greater London",
+      "type": "region"
+    },
+    {
+      "name": "City of Westminster",
+      "type": "borough"
+    }
+  ],
+  "postal_areas": [
+    {
+      "postcode": "SW1A 1AA",
+      "area": "Westminster"
+    }
+  ],
+  "boundaries": {
+    "constituency": "Cities of London and Westminster",
+    "ward": "St James's",
+    "parish": null
+  },
+  "metadata": {
+    "data_source": "OS NGD API (Mock)",
+    "last_updated": "2025-01-09",
+    "accuracy": "high"
+  }
+}
+
+🔍 Test 2: Searching for places matching 'Westminster'
+[
+  {
+    "name": "Location 1 matching 'Westminster'",
+    "type": "settlement",
+    "coordinates": {
+      "latitude": 51.5074,
+      "longitude": -0.1278
+    },
+    "administrative_area": "Area 1",
+    "confidence": 0.9
+  },
+  {
+    "name": "Location 2 matching 'Westminster'",
+    "type": "landmark",
+    "coordinates": {
+      "latitude": 51.517399999999995,
+      "longitude": -0.1178
+    },
+    "administrative_area": "Area 2",
+    "confidence": 0.8
+  },
+  {
+    "name": "Location 3 matching 'Westminster'",
+    "type": "settlement",
+    "coordinates": {
+      "latitude": 51.5274,
+      "longitude": -0.10779999999999999
+    },
+    "administrative_area": "Area 3",
+    "confidence": 0.7
+  }
+]
+
+🗺️  Test 3: Getting boundary information for Manchester
+{
+  "location": "Manchester",
+  "boundary_type": "administrative",
+  "boundaries": {
+    "administrative": {
+      "country": "England",
+      "region": "Greater London",
+      "local_authority": "Westminster",
+      "ward": "St James's"
+    },
+    "electoral": {
+      "constituency": "Cities of London and Westminster",
+      "european_region": "London"
+    },
+    "postal": {
+      "postcode_area": "SW",
+      "postcode_district": "SW1A"
+    }
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          [
+            -0.1278,
+            51.5074
+          ],
+          [
+            -0.127,
+            51.5074
+          ],
+          [
+            -0.127,
+            51.508
+          ],
+          [
+            -0.1278,
+            51.508
+          ],
+          [
+            -0.1278,
+            51.5074
+          ]
+        ]
+      ]
+    ]
+  }
+}
+
+🏛️  Test 4: Getting constituency geography for 'Cities of London and Westminster'
+{
+  "constituency": "Cities of London and Westminster",
+  "geographic_data": {
+    "location": "Cities of London and Westminster",
+    "data_type": "detailed",
+    "coordinates": {
+      "latitude": 51.5074,
+      "longitude": -0.1278
+    },
+    "administrative_areas": [
+      {
+        "name": "Greater London",
+        "type": "region"
+      },
+      {
+        "name": "City of Westminster",
+        "type": "borough"
+      }
+    ],
+    "postal_areas": [
+      {
+        "postcode": "SW1A 1AA",
+        "area": "Westminster"
+      }
+    ],
+    "boundaries": {
+      "constituency": "Cities of London and Westminster",
+      "ward": "St James's",
+      "parish": null
+    },
+    "metadata": {
+      "data_source": "OS NGD API (Mock)",
+      "last_updated": "2025-01-09",
+      "accuracy": "high"
+    }
+  },
+  "boundary_data": {
+    "location": "Cities of London and Westminster",
+    "boundary_type": "electoral",
+    "boundaries": {
+      "administrative": {
+        "country": "England",
+        "region": "Greater London",
+        "local_authority": "Westminster",
+        "ward": "St James's"
+      },
+      "electoral": {
+        "constituency": "Cities of London and Westminster",
+        "european_region": "London"
+      },
+      "postal": {
+        "postcode_area": "SW",
+        "postcode_district": "SW1A"
+      }
+    },
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            [
+              -0.1278,
+              51.5074
+            ],
+            [
+              -0.127,
+              51.5074
+            ],
+            [
+              -0.127,
+              51.508
+            ],
+            [
+              -0.1278,
+              51.508
+            ],
+            [
+              -0.1278,
+              51.5074
+            ]
+          ]
+        ]
+      ]
+    }
+  },
+  "integration_note": "This data can be combined with Parliament MCP server for complete constituency information"
+}
+
+✅ All OS NGD API MCP Server tests completed successfully!
+
+🔗 Integration Notes:
+- This OS NGD API server can work alongside the Parliament MCP server
+- Geographic data can provide context for parliamentary constituencies
+- Boundary information helps understand electoral geography
+- Both servers are now configured in VS Code MCP settings

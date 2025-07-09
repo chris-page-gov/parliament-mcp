@@ -1,0 +1,143 @@
+INFO:__main__:🔗 Connecting to OS MCP server at http://localhost:8081/mcp/
+INFO:__main__:✅ Connection established
+INFO:__main__:📋 Initializing session...
+INFO:httpx:HTTP Request: POST http://localhost:8081/mcp/ "HTTP/1.1 200 OK"
+INFO:mcp.client.streamable_http:Received session ID: a44a0040ce7f42828522fe1c28f525d8
+INFO:mcp.client.streamable_http:Negotiated protocol version: 2025-06-18
+✅ Initialized successfully
+📝 Session ID: a44a0040ce7f42828522fe1c28f525d8
+INFO:__main__:🔧 Listing available tools...
+INFO:httpx:HTTP Request: POST http://localhost:8081/mcp/ "HTTP/1.1 202 Accepted"
+INFO:httpx:HTTP Request: GET http://localhost:8081/mcp/ "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST http://localhost:8081/mcp/ "HTTP/1.1 200 OK"
+🛠️  Available tools (14):
+  - hello_world: Simple hello world tool for testing
+  - check_api_key: Check if the OS API key is available.
+  - list_collections: 
+        List all available feature collections in the OS NGD API.
+
+        Returns:
+            JSON string with collection info (id, title only)
+        
+  - get_collection_info: 
+        Get detailed information about a specific collection.
+
+        Args:
+            collection_id: The collection ID
+
+        Returns:
+            JSON string with collection information
+        
+  - get_collection_queryables: 
+        Get the list of queryable properties for a collection.
+
+        Args:
+            collection_id: The collection ID
+
+        Returns:
+            JSON string with queryable properties
+        
+  - search_features: 
+        Search for features in a collection with simplified parameters.
+        
+  - get_feature: 
+        Get a specific feature by ID.
+
+        Args:
+            collection_id: The collection ID
+            feature_id: The feature ID
+            crs: Coordinate reference system for the response
+
+        Returns:
+            JSON string with feature data
+        
+  - get_linked_identifiers: 
+        Get linked identifiers for a specified identifier.
+
+        Args:
+            identifier_type: The type of identifier (e.g., 'TOID', 'UPRN')
+            identifier: The identifier value
+            feature_type: Optional feature type to filter results
+
+        Returns:
+            JSON string with linked identifiers or filtered results
+        
+  - get_bulk_features: 
+        Get multiple features in a single call.
+
+        Args:
+            collection_id: The collection ID
+            identifiers: List of feature IDs or attribute values
+            query_by_attr: If provided, query by this attribute instead of feature ID
+
+        Returns:
+            JSON string with features data
+        
+  - get_bulk_linked_features: 
+        Get linked features for multiple identifiers in a single call.
+
+        Args:
+            identifier_type: The type of identifier (e.g., 'TOID', 'UPRN')
+            identifiers: List of identifier values
+            feature_type: Optional feature type to filter results
+
+        Returns:
+            JSON string with linked features data
+        
+  - get_prompt_templates: 
+        Get standard prompt templates for interacting with this service.
+
+        Args:
+            category: Optional category of templates to return
+                     (general, collections, features, linked_identifiers)
+
+        Returns:
+            JSON string containing prompt templates
+        
+  - search_by_uprn: 
+        Find addresses by UPRN using the OS Places API.
+
+        Args:
+            uprn: A valid UPRN (Unique Property Reference Number)
+            format: The format the response will be returned in (JSON or XML)
+            dataset: The dataset to return (DPA, LPI or both separated by comma)
+            lr: Language of addresses to return (EN, CY)
+            output_srs: The output spatial reference system
+            fq: Optional filter for classification code, logical status code, etc.
+
+        Returns:
+            JSON string with matched addresses
+        
+  - search_by_post_code: 
+        Find addresses by POSTCODE using the OS Places API.
+
+        Args:
+            postcode: A valid POSTCODE (e.g. "SW1A 1AA")
+            format: The format the response will be returned in (JSON or XML)
+            dataset: The dataset to return (DPA, LPI or both separated by comma)
+            lr: Language of addresses to return (EN, CY)
+            output_srs: The output spatial reference system
+            fq: Optional filter for classification code, logical status code, etc.
+
+        Returns:
+            JSON string with matched addresses
+        
+  - get_light_map_tile: 
+        Get a Light style map tile in EPSG:27700 projection.
+        Returns HTML with a clickable image for download.
+        
+INFO:__main__:🌍 Testing hello_world tool...
+INFO:httpx:HTTP Request: POST http://localhost:8081/mcp/ "HTTP/1.1 200 OK"
+📣 Hello World result: [TextContent(type='text', text='Hello, VS Code User! 👋 (Session: 2)', annotations=None, meta=None)]
+INFO:__main__:🔐 Testing API key check...
+INFO:httpx:HTTP Request: POST http://localhost:8081/mcp/ "HTTP/1.1 200 OK"
+🔑 API Key check result: [TextContent(type='text', text='OS_API_KEY is set!', annotations=None, meta=None)]
+INFO:__main__:📊 Testing list_collections tool...
+INFO:httpx:HTTP Request: POST http://localhost:8081/mcp/ "HTTP/1.1 200 OK"
+📋 Collections result: [TextContent(type='text', text='{"error": "Request failed: HTTP Error: 401 - \\n            {\\"code\\": 401,\\"description\\": \\"Missing or unsupported API key provided.\\"}\\n        "}', annotations=None, meta=None)]
+
+🎉 Real OS MCP server test completed!
+🔗 This server provides comprehensive OS NGD API access
+📍 Including geographic data, features, and spatial analysis
+🗺️  Perfect complement to the Parliament MCP server
+INFO:httpx:HTTP Request: DELETE http://localhost:8081/mcp/ "HTTP/1.1 200 OK"

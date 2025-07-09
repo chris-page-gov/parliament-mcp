@@ -1,0 +1,47 @@
+🗺️  Getting OS Map for Harrow East/West Road Analysis
+=======================================================
+✅ Connected to OS NGD API server
+📝 Session ID: b0bf0b6dc75b425d99e3a82d40036d70
+🗺️  Available map tools: ['get_light_map_tile']
+
+📍 Requesting OS map tile for Harrow area...
+🗺️  Map tile result:
+[TextContent(type='text', text='\n            <html>\n            <body style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">\n                <p>Click on the map tile to download:</p>\n                <a href="https://api.os.uk/maps/raster/v1/zxy/Light_27700/14/8192/5462.png?key=test_key" download="os_map_z14_x8192_y5462.png">\n                    <img src="https://api.os.uk/maps/raster/v1/zxy/Light_27700/14/8192/5462.png?key=test_key" width="256" height="256" alt="OS Map Tile"\n                         style="border: 1px solid #ccc; cursor: pointer;">\n                </a>\n                <p><small>OS Light Map Tile (z=14, x=8192, y=5462)</small></p>\n            </body>\n            </html>\n            ', annotations=None, meta=None)]
+
+📍 Getting geographic context for Harrow area...
+
+📮 HA1 3TP location data:
+[TextContent(type='text', text='{"error": "POSTCODE must contain only letters and numbers"}', annotations=None, meta=None)]
+
+📮 HA2 7LX location data:
+[TextContent(type='text', text='{"error": "POSTCODE must contain only letters and numbers"}', annotations=None, meta=None)]
+
+📮 HA3 8LT location data:
+[TextContent(type='text', text='{"error": "POSTCODE must contain only letters and numbers"}', annotations=None, meta=None)]
+
+🗺️  Manual Map Reference:
+For detailed OS mapping of Harrow East/West boundary roads:
+
+📍 OS Map Coordinates:
+• Grid Reference: TQ 15 88 (approximate center)
+• Latitude/Longitude: 51.5836°N, -0.3339°W
+• OS Landranger Map: Sheet 176 (West London)
+• OS Explorer Map: Sheet 172 (Chiltern Hills East)
+
+🛣️  Key Roads to Look For on OS Map:
+• A404 Harrow Road - Main east-west arterial
+• A4005 Northolt Road - Central Harrow connector
+• A312 The Parkway - North-south route
+• B455 Pinner Road - Pinner to Harrow center
+• Harrow-on-the-Hill Station area - Boundary focal point
+
+📱 Online OS Map Access:
+• OS Maps website: https://osmaps.ordnancesurvey.co.uk/
+• Search for 'Harrow, London' or postcode 'HA1 3TP'
+• Zoom level 14-16 will show road detail and boundaries
+• Use Layer options to show administrative boundaries
+
+💡 Pro Tip:
+The OS NGD API can provide detailed road network data
+when a valid API key is configured. The map tile tool
+would then generate actual downloadable OS map images.
