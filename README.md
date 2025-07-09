@@ -425,6 +425,50 @@ make es_health
 - Verify inference endpoints are created: `parliament-mcp init-elasticsearch`
 - Use https://elasticvue.com/ to inspect the Elasticsearch instance
 
+## Branch Management
+
+### Separating Custom Changes from Upstream
+
+This repository includes a script to help manage fork workflows where custom changes need to be preserved while keeping the main branch synchronized with upstream:
+
+```bash
+# Automate separation of custom commits into a crpage branch
+./separate-branches.sh https://github.com/i-dot-ai/parliament-mcp.git
+```
+
+**What the script does:**
+- Creates a `crpage` branch preserving your custom commits
+- Resets `main` branch to match upstream repository
+- Sets up proper remote tracking for ongoing synchronization
+- Includes safety features: backups, confirmations, validation
+
+**Key Features:**
+- ✅ **Idempotent**: Safe to run multiple times
+- ✅ **Safe**: Creates backups before destructive operations
+- ✅ **Interactive**: Prompts for confirmation on critical steps
+- ✅ **Non-intrusive**: Never pushes to upstream repository
+
+**For detailed documentation:**
+```bash
+# View comprehensive usage guide
+cat BRANCH_SEPARATION_README.md
+
+# Get help
+./separate-branches.sh --help
+```
+
+**Typical post-separation workflow:**
+```bash
+# Work on your custom branch
+git checkout crpage
+
+# Sync main with upstream regularly
+git checkout main && git pull upstream main && git push origin main
+
+# Merge upstream changes into your work
+git checkout crpage && git merge main
+```
+
 ## Contributing
 
 Contributions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
