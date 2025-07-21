@@ -25,9 +25,17 @@ pre-commit:  ## Run pre-commit on all files
 test: install
 	uv run python -m pytest --cov=parliament_mcp -v --cov-report=term-missing --cov-fail-under=0
 
+test_integration: install
+	uv run python -m pytest -s -v --with-integration
+
+test_integration_cleanup:  ## Clean up files created by integration tests
+	rm -rf .cache .pytest_cache tests/.parliament-test-es-data
+
+run_elasticsearch:
+	docker compose up -d elasticsearch --wait
 
 run_mcp_server:
-	cd mcp_server && uv run python app/main.py
+	uv run parliament-mcp serve
 
 run:
 	docker compose up -d --wait
@@ -72,6 +80,9 @@ ingest_daily: init_elasticsearch
 	docker compose exec mcp-server uv run parliament-mcp --log-level WARNING load-data hansard --from-date "2 days ago" --to-date "today"
 	docker compose exec mcp-server uv run parliament-mcp --log-level WARNING load-data parliamentary-questions --from-date "2 days ago" --to-date "today"
 
+delete_elasticsearch_data:
+	docker compose exec mcp-server uv run parliament-mcp --log-level WARNING delete-elasticsearch
+
 # MCP Development Commands
 .PHONY: mcp_test
 mcp_test:  ## Test MCP server connection
@@ -110,7 +121,6 @@ format:  ## Format and fix code
 .PHONY: safe
 safe:  ## Run security checks
 	uv run bandit -ll -r ./parliament_mcp
-	uv run bandit -ll -r ./mcp_server
 
 
 
@@ -140,17 +150,17 @@ docker_build: ## Build the docker container for the specified service when runni
 		DOCKER_BUILDKIT=1 docker buildx build --platform linux/amd64 --load --builder=$(DOCKER_BUILDER_CONTAINER) -t $(IMAGE) \
 		--cache-to type=local,dest=$(cache) \
 		--cache-from type=local,src=$(cache) -f Dockerfile.lambda .; \
-	else \
+	elif [ "$(service)" = "mcp_server" ]; then \
 		DOCKER_BUILDKIT=1 docker buildx build --platform linux/amd64 --load --builder=$(DOCKER_BUILDER_CONTAINER) -t $(IMAGE) \
 		--cache-to type=local,dest=$(cache) \
-		--cache-from type=local,src=$(cache) -f $(service)/Dockerfile .; \
+		--cache-from type=local,src=$(cache) -f Dockerfile.mcp-server .; \
 	fi
 
 docker_build_local: ## Build the docker container for the specified service locally
 	@if [ "$(service)" = "lambda" ]; then \
 		DOCKER_BUILDKIT=1 docker build -t $(IMAGE) -f Dockerfile.lambda .; \
-	else \
-		DOCKER_BUILDKIT=1 docker build -t $(IMAGE) -f $(service)/Dockerfile .; \
+	elif [ "$(service)" = "mcp_server" ]; then \
+		DOCKER_BUILDKIT=1 docker build -t $(IMAGE) -f Dockerfile.mcp-server .; \
 	fi
 
 docker_build_lambda: ## Build the docker container for the lambda function
