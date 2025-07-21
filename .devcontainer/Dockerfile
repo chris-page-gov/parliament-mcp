@@ -35,3 +35,10 @@ ENV PYTHONPATH=/workspace
 
 # Default command
 CMD ["bash"]
+
+# Create vscode user for VS Code Dev Containers compatibility
+RUN useradd -m vscode \
+    && echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/vscode \
+    && chmod 0440 /etc/sudoers.d/vscode
+
+USER vscode
