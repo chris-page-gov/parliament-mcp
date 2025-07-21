@@ -1,0 +1,81 @@
+# Docker Compose with MCP Sampling Intelligence Support
+# Extended version of the original docker-compose.yaml with intelligence capabilities
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.3
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    env_file:
+      - path: .env
+        required: true
+    ports:
+      - "${ELASTICSEARCH_PORT}:${ELASTICSEARCH_PORT}"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - parliament-mcp-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mcp-server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.mcp-intelligence  # Use intelligence-enabled Dockerfile
+    container_name: mcp-server
+    ports:
+      - "${MCP_PORT}:${MCP_PORT}"
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      # Intelligence system configuration
+      - MCP_SAMPLING_ENABLED=true
+      - INTENT_CONFIDENCE_THRESHOLD=0.7
+      - PARAMETER_OPTIMIZATION_ENABLED=true
+      - RESULT_EVALUATION_ENABLED=true
+      - MAX_TOOLS_PER_QUERY=3
+      - LLM_TIMEOUT_SECONDS=30
+      # Azure OpenAI configuration (set in .env file)
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY:-}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT:-}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION:-2024-02-01}
+    env_file:
+      - path: .env
+        required: true
+    networks:
+      - parliament-mcp-network
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Intelligence Demo Service (optional)
+  mcp-intelligence-demo:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.mcp-intelligence
+    container_name: mcp-intelligence-demo
+    command: ["python3", "container_demo.py"]
+    environment:
+      - PYTHONPATH=/app
+    networks:
+      - parliament-mcp-network
+    profiles:
+      - demo  # Only run when 'demo' profile is specified
+
+volumes:
+  es_data:
+    driver: local
+
+networks:
+  parliament-mcp-network:
+    driver: bridge
