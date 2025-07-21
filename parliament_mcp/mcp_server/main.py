@@ -1,10 +1,10 @@
-import argparse
 import contextlib
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
-from mcp_server.app.api import mcp_server, settings
+from parliament_mcp.mcp_server.api import mcp_server, settings
 
 
 def create_app():
@@ -17,23 +17,23 @@ def create_app():
             yield
 
     app = FastAPI(lifespan=lifespan)
+
+    @app.get("/healthcheck")
+    async def health_check():
+        return JSONResponse(status_code=200, content={"status": "ok"})
+
     app.mount(settings.MCP_ROOT_PATH, mcp_server.streamable_http_app())
 
     return app
 
 
-def main():
+def main(reload=True):
     """Run MCP server with configurable reload option."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--no-reload", dest="reload", action="store_false")
-    parser.set_defaults(reload=True)
-    args = parser.parse_args()
-
     uvicorn.run(
-        "mcp_server.app.main:create_app",
+        "parliament_mcp.mcp_server.main:create_app",
         host=settings.MCP_HOST,
         port=settings.MCP_PORT,
-        reload=args.reload,
+        reload=reload,
         factory=True,
         timeout_graceful_shutdown=0,
     )
