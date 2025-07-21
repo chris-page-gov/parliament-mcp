@@ -1,8 +1,8 @@
 FROM public.ecr.aws/docker/library/python:3.12-slim
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 ENV COLUMNS=200
 
 # Install system dependencies and uv
