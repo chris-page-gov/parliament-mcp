@@ -1,6 +1,13 @@
 # Use the official AWS Lambda Python base image
 FROM public.ecr.aws/lambda/python:3.12
 
+# Create vscode user for VS Code Dev Containers compatibility
+RUN useradd -m vscode \
+    && echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/vscode \
+    && chmod 0440 /etc/sudoers.d/vscode
+
+USER vscode
+
 # Set the working directory
 WORKDIR ${LAMBDA_TASK_ROOT}
 
