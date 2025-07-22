@@ -1,0 +1,68 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Test MCP API - Search Constituency",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-X",
+                "POST",
+                "http://localhost:8080/mcp/",
+                "-H",
+                "Content-Type: application/json",
+                "-d",
+                "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/call\", \"params\": {\"name\": \"search_constituency\", \"arguments\": {\"query\": \"Birmingham\"}}}"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Test MCP API - Search Members",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-X",
+                "POST",
+                "http://localhost:8080/mcp/",
+                "-H",
+                "Content-Type: application/json",
+                "-d",
+                "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"tools/call\", \"params\": {\"name\": \"search_members\", \"arguments\": {\"name\": \"Starmer\"}}}"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "MCP API - List Available Tools",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-X",
+                "POST",
+                "http://localhost:8080/mcp/",
+                "-H",
+                "Content-Type: application/json",
+                "-d",
+                "{\"jsonrpc\": \"2.0\", \"id\": 3, \"method\": \"tools/list\"}"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+[
+    {
+        "key": "ctrl+shift+m",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Start MCP Server",
+        "when": "!taskRunning"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Start Docker Services",
+        "when": "!taskRunning"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run Tests"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Check Elasticsearch Health"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Show Claude Config"
+    }
+]

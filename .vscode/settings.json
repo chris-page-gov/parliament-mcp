@@ -1,0 +1,43 @@
+{
+    "makefile.configureOnOpen": false,
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "88"
+    ],
+    "python.sortImports.args": [
+        "--profile",
+        "black"
+    ],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/node_modules": true,
+        "**/.env": false
+    },
+    "python.envFile": "${workspaceFolder}/.env",
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "claude_desktop_config.json"
+            ],
+            "url": "https://raw.githubusercontent.com/modelcontextprotocol/schemas/main/schemas/mcp_config_schema.json"
+        }
+    ],
+    "python.snippets": {
+        "python": ".vscode/python.json"
+    }
+}

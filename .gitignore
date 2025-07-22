@@ -32,7 +32,10 @@ ENV/
 env/
 
 # IDE
-.vscode/
+# .vscode/  # Commented out - we want to share MCP development configuration
+# But exclude user-specific VS Code files:
+.vscode/settings.json.user
+.vscode/launch.json.user
 .idea/
 *.swp
 *.swo

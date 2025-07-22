@@ -1,0 +1,251 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start MCP Server",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "parliament-mcp",
+                "serve"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "dependsOn": "Check Environment"
+        },
+        {
+            "label": "Start Docker Services",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": [
+                "up",
+                "--build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop Docker Services",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": [
+                "down"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Run Tests",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "test"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                "$python"
+            ]
+        },
+        {
+            "label": "Initialize Elasticsearch",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "exec",
+                "mcp-server",
+                "uv",
+                "run",
+                "parliament-mcp",
+                "--log-level",
+                "INFO",
+                "init-elasticsearch"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Start Docker Services"
+        },
+        {
+            "label": "Load Sample Data",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "load_reference_week"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Initialize Elasticsearch"
+        },
+        {
+            "label": "Check Elasticsearch Health",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "es_health"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Show Claude Config",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "mcp_claude_config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Check Environment",
+            "type": "shell",
+            "command": "test",
+            "args": [
+                "-f",
+                ".env"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Setup from Scratch",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "dev_setup_from_scratch"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Test MCP API - List Tools",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-X",
+                "POST",
+                "http://localhost:8080/mcp/",
+                "-H",
+                "Content-Type: application/json",
+                "-H",
+                "Accept: application/json, text/event-stream",
+                "-d",
+                "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/list\"}"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Start MCP Server"
+        },
+        {
+            "label": "Test MCP API - Search Constituency",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-X",
+                "POST",
+                "http://localhost:8080/mcp/",
+                "-H",
+                "Content-Type: application/json",
+                "-H",
+                "Accept: application/json, text/event-stream",
+                "-d",
+                "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"tools/call\", \"params\": {\"name\": \"search_constituency\", \"arguments\": {\"searchText\": \"Birmingham\"}}}"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Start MCP Server"
+        },
+        {
+            "label": "Run MCP Client Demo",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "examples/mcp_python_client.py"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Start MCP Server"
+        }
+    ]
+}
