@@ -39,5 +39,14 @@
     ],
     "python.snippets": {
         "python": ".vscode/python.json"
+    },
+    "chat.mcp.serverSampling": {
+        "workspace/.vscode/mcp.json: os-ngd-api": {
+            "allowedModels": [
+                "github.copilot-chat/gpt-4.1",
+                "github.copilot-chat/claude-sonnet-4",
+                "github.copilot-chat/gemini-2.5-pro"
+            ]
+        }
     }
 }

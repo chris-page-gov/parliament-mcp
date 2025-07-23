@@ -21,9 +21,7 @@
             },
             "isBackground": true,
             "problemMatcher": [],
-            "runOptions": {
-                "runOn": "folderOpen"
-            },
+            // Removed "runOptions": {"runOn": "folderOpen"} to stop auto-start
             "dependsOn": "Check Environment"
         },
         {

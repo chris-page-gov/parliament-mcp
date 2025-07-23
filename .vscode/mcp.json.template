@@ -1,9 +1,16 @@
 {
   "servers": {
     "parliament-mcp": {
-      "command": "python",
-      "args": ["-m", "mcp_server.app.main"],
-      "cwd": "/workspace/mcp_server",
+      "command": "/workspace/.venv/bin/python",
+      "args": ["/workspace/parliament_mcp/mcp_server/stdio_server.py"],
+      "cwd": "/workspace",
+      "env": {
+        "ENVIRONMENT": "local"
+      }
+    },
+    "parliament-mcp-multi-api": {
+      "command": "/workspace/.venv/bin/python",
+      "args": ["-m", "parliament_mcp.mcp_server.multi_api_enhanced"],
       "env": {
         "ENVIRONMENT": "local"
       }
