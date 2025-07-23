@@ -36,6 +36,7 @@ env/
 # But exclude user-specific VS Code files:
 .vscode/settings.json.user
 .vscode/launch.json.user
+.vscode/mcp.json  # Exclude actual MCP config (use template instead)
 .idea/
 *.swp
 *.swo

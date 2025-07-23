@@ -1,0 +1,23 @@
+{
+  "servers": {
+    "parliament-mcp": {
+      "command": "python",
+      "args": ["-m", "mcp_server.app.main"],
+      "cwd": "/workspace/mcp_server",
+      "env": {
+        "ENVIRONMENT": "local"
+      }
+    },
+    "os-ngd-api": {
+      "command": "python",
+      "args": ["/workspace/os-mcp/src/server.py", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "8081"],
+      "cwd": "/workspace/os-mcp",
+      "env": {
+        "OS_API_KEY": "${OS_API_KEY}",
+        "STDIO_KEY": "${OS_API_KEY}",
+        "BEARER_TOKEN": "dev-token",
+        "PYTHONPATH": "src"
+      }
+    }
+  }
+}
